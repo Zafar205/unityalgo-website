@@ -1,65 +1,209 @@
 import Image from "next/image";
+import React from "react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <main className="relative min-h-screen w-full bg-white overflow-hidden font-sans">
+      {/* Custom Keyframes for Droplet and Floating Animations */}
+      <style>{`
+        @keyframes drop {
+          0% { top: -10%; opacity: 0; }
+          5% { opacity: 1; }
+          95% { opacity: 1; }
+          100% { top: 110%; opacity: 0; }
+        }
+        /* Increased travel distance for a sweeping top-to-bottom motion */
+        @keyframes float-large {
+          0%, 100% { transform: translateY(-130px); }
+          50% { transform: translateY(130px); }
+        }
+        @keyframes float-large-delayed {
+          0%, 100% { transform: translateY(130px); }
+          50% { transform: translateY(-130px); }
+        }
+      `}</style>
+
+      {/* Background Vertical Lines with Droplets (Faded out before the image) */}
+      <div 
+        className="absolute inset-x-0 top-0 h-[90vh] z-0 flex justify-evenly pointer-events-none"
+        style={{ 
+          maskImage: 'linear-gradient(to bottom, black 30%, transparent 70%)', 
+          WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 70%)' 
+        }}
+      >
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className="relative w-px h-full bg-gray-100 overflow-hidden">
+            {/* Animated Droplet */}
+            <div
+              className="absolute left-0 w-full h-32 bg-gradient-to-b from-transparent to-[#8c181b]"
+              style={{
+                animation: `drop ${4 + (i % 4) + (i % 2) * 0.5}s linear infinite`,
+                animationDelay: `${i * 0.7}s`,
+                opacity: 0,
+              }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Bar */}
+      <nav className="relative z-30 mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+        <div className="flex items-center gap-3">
+          <Image 
+            src="/logo.png" 
+            alt="UnityAlgo Logo" 
+            width={40} 
+            height={40} 
+            className="object-contain"
+            priority
+          />
+          <span className="text-xl font-bold text-black tracking-tight">UnityAlgo</span>
         </div>
-      </main>
-    </div>
+        
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-black">
+          <a href="#" className="hover:text-[#8c181b] transition-colors">Home</a>
+          <a href="#" className="hover:text-[#8c181b] transition-colors">About</a>
+          <a href="#" className="hover:text-[#8c181b] transition-colors">Services</a>
+          <a href="#" className="hover:text-[#8c181b] transition-colors">Pricing</a>
+          <a href="#" className="hover:text-[#8c181b] transition-colors">FAQ</a>
+        </div>
+
+        <button className="rounded-lg bg-[#111827] px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-black">
+          Contact Now
+        </button>
+      </nav>
+
+      {/* Hero Content */}
+      <div className="relative z-20 mx-auto max-w-4xl px-4 pt-16 text-center">
+        
+        {/* Social Proof Pill */}
+        <div className="mx-auto mb-8 flex max-w-fit items-center gap-3 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
+          <div className="flex -space-x-2">
+            <Image 
+              src="/first.avif" 
+              alt="Enterprise Client 1" 
+              width={24} 
+              height={24} 
+              className="h-6 w-6 rounded-full border-2 border-white object-cover bg-gray-100" 
+            />
+            <Image 
+              src="/second.avif" 
+              alt="Enterprise Client 2" 
+              width={24} 
+              height={24} 
+              className="h-6 w-6 rounded-full border-2 border-white object-cover bg-gray-100" 
+            />
+            <Image 
+              src="/third.avif" 
+              alt="Enterprise Client 3" 
+              width={24} 
+              height={24} 
+              className="h-6 w-6 rounded-full border-2 border-white object-cover bg-gray-100" 
+            />
+          </div>
+          <span className="text-xs font-medium text-black pr-2">
+            Trusted by enterprise clients
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black mb-6 leading-tight">
+          All-in-One ERP, Cloud & Analytics{" "}
+          <span className="relative inline-block border-2 border-[#8c181b] text-[#8c181b] px-3 py-1 mt-2">
+            Software
+            <span className="absolute -left-1.5 -top-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
+            <span className="absolute -right-1.5 -top-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
+            <span className="absolute -bottom-1.5 -left-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
+            <span className="absolute -bottom-1.5 -right-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
+          </span>
+        </h1>
+
+        {/* Subheadline */}
+        <p className="mx-auto max-w-2xl text-lg text-black font-medium leading-relaxed mb-10">
+          Streamline your business operations with intelligent automation. 
+          UnityAlgo brings AI-driven insights to manage expenses, purchases, sales, accounting, inventory, and more.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <button className="rounded-lg bg-[#8c181b] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#8c181b]/30 transition-all hover:bg-[#701315] hover:-translate-y-0.5">
+            Start Free Trial
+          </button>
+          <button className="rounded-lg border border-gray-200 bg-white px-8 py-3.5 text-sm font-semibold text-black shadow-sm transition-all hover:bg-gray-50 hover:-translate-y-0.5">
+            Documentation
+          </button>
+        </div>
+      </div>
+
+      {/* Hero Image Section with Background */}
+      <div className="relative mx-auto mt-20 w-full max-w-7xl px-4 pb-32">
+        
+        {/* Background Gradient Image */}
+        <div className="absolute left-1/2 top-[10%] z-0 h-[800px] w-[100vw] -translate-x-1/2 pointer-events-none">
+          <Image
+            src="/hero_gradient.png"
+            alt="Hero Background Gradient"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+        </div>
+
+        {/* Image Container */}
+        <div className="relative z-10 mx-auto max-w-5xl rounded-2xl border border-gray-200/60 bg-white/50 p-2 shadow-2xl backdrop-blur-sm">
+          <div className="relative overflow-hidden rounded-xl bg-white border border-gray-100 shadow-inner">
+            <Image
+              src="/hero.png"
+              alt="UnityAlgo Dashboard"
+              width={1200}
+              height={800}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
+
+          {/* Floating UI Element - Left (Overview) */}
+          {/* Pushed further left (-left-16 lg:-left-32) and centered vertically (top-1/2 -mt-24) to maximize vertical travel */}
+          <div 
+            className="absolute -left-16 lg:-left-32 top-1/2 -mt-24 hidden md:flex flex-col justify-between w-60 h-48 rounded-xl border border-gray-100 bg-white/95 backdrop-blur-md p-5 shadow-2xl z-20"
+            style={{ animation: 'float-large 10s ease-in-out infinite' }}
+          >
+            <div className="mb-2 text-sm font-bold text-black">Overview</div>
+            <div className="flex flex-1 items-center justify-center py-2">
+              <div className="h-20 w-20 rounded-full border-[5px] border-gray-100 border-t-[#8c181b] border-r-[#8c181b] flex items-center justify-center">
+                <span className="text-sm font-bold text-black">80%</span>
+              </div>
+            </div>
+            <div className="flex justify-between text-xs text-black mt-2">
+              <span>Income<br/><b className="text-[10px]">$8264.35</b></span>
+              <span className="text-right">Expenses<br/><b className="text-[10px]">$2064.35</b></span>
+            </div>
+          </div>
+
+          {/* Floating UI Element - Right (Progress) */}
+          {/* Pushed further right (-right-16 lg:-right-32) and centered vertically (top-1/2 -mt-24) to maximize vertical travel */}
+          <div 
+            className="absolute -right-16 lg:-right-32 top-1/2 -mt-24 hidden md:flex flex-col justify-between w-60 h-48 rounded-xl border border-gray-100 bg-white/95 backdrop-blur-md p-5 shadow-2xl z-20"
+            style={{ animation: 'float-large-delayed 10s ease-in-out infinite' }}
+          >
+            <div className="mb-2 text-sm font-bold text-black">Progress</div>
+            <div className="flex flex-1 items-center justify-center gap-6">
+              <div className="h-16 w-16 rounded-full border-[5px] border-gray-100 border-l-[#8c181b] border-b-[#8c181b] flex items-center justify-center">
+                <span className="text-xs font-bold text-black">70%</span>
+              </div>
+              <div className="flex flex-col gap-2 text-xs text-black font-medium">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-gray-300"></span> Left
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#8c181b]"></span> Complete
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
   );
 }
