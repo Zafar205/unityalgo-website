@@ -39,7 +39,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="relative w-full py-24 bg-[#FAFAFA] overflow-hidden">
+    <section id="faq" className="relative w-full py-24 bg-[#FAFAFA] overflow-hidden">
       {/* Subtle Grid Background */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_100%] opacity-70 pointer-events-none" />
 

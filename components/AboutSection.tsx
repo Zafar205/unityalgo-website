@@ -4,7 +4,7 @@ import { Sparkles } from "lucide-react";
 
 export function AboutSection() {
   return (
-    <section className="relative z-20 mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <section id="about" className="relative z-20 mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         
         {/* Left Column - Text Content */}

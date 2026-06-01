@@ -17,16 +17,16 @@ export function Navbar() {
       </div>
       
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-black">
-        <a href="#" className="hover:text-[#8c181b] transition-colors">Home</a>
-        <a href="#" className="hover:text-[#8c181b] transition-colors">About</a>
-        <a href="#" className="hover:text-[#8c181b] transition-colors">Services</a>
-        <a href="#" className="hover:text-[#8c181b] transition-colors">Pricing</a>
-        <a href="#" className="hover:text-[#8c181b] transition-colors">FAQ</a>
+        <a href="#home" className="hover:text-[#8c181b] transition-colors">Home</a>
+        <a href="#about" className="hover:text-[#8c181b] transition-colors">About</a>
+        <a href="#services" className="hover:text-[#8c181b] transition-colors">Services</a>
+        <a href="#pricing" className="hover:text-[#8c181b] transition-colors">Pricing</a>
+        <a href="#faq" className="hover:text-[#8c181b] transition-colors">FAQ</a>
       </div>
 
-      <button className="rounded-lg bg-[#111827] px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-black">
+      <a href="#contact" className="rounded-lg bg-[#111827] px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-black">
         Contact Now
-      </button>
+      </a>
     </nav>
   );
 }

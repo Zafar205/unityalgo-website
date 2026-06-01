@@ -3,7 +3,7 @@ import React from "react";
 
 export function HeroSection() {
   return (
-    <>
+    <section id="home" className="relative">
       {/* Background Vertical Lines with Droplets (Faded out before the image) */}
       <div 
         className="absolute inset-x-0 top-0 h-[80vh] z-0 flex justify-evenly pointer-events-none"
@@ -156,6 +156,6 @@ export function HeroSection() {
 
         </div>
       </div>
-    </>
+    </section>
   );
 }

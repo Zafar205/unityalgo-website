@@ -4,7 +4,7 @@ import { Sparkles, Phone, Mail } from "lucide-react";
 
 export function ContactSection() {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20">
+    <section id="contact" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20">
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-bold text-black shadow-sm mb-6">
           <Sparkles className="h-4 w-4 text-[#8c181b]" />
