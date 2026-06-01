@@ -1,0 +1,96 @@
+import React from "react";
+import Image from "next/image";
+import { Sparkles, Phone, Mail } from "lucide-react";
+
+export function ContactSection() {
+  return (
+    <section className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20">
+      <div className="text-center mb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-bold text-black shadow-sm mb-6">
+          <Sparkles className="h-4 w-4 text-[#8c181b]" />
+          CONTACT NOW
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black leading-tight">
+          We'd Love to Hear From You
+        </h2>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl max-w-5xl mx-auto">
+        
+        {/* Left: Image & Info */}
+        <div className="relative aspect-square lg:aspect-auto w-full bg-[#8c181b]">
+          {/* Background Image Placeholder */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-[#8c181b]/80 z-10 mix-blend-multiply" />
+            <Image 
+              src="/contact.png" 
+              alt="Office" 
+              fill 
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />
+          </div>
+          
+          <div className="relative z-20 h-full flex flex-col justify-end p-10 text-white">
+            <h3 className="text-2xl font-bold mb-2">Address</h3>
+            <p className="text-gray-300 mb-8 leading-relaxed">
+              123 Business Avenue<br />
+              Karachi, Pakistan, 1200
+            </p>
+            
+            <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
+            <div className="flex items-center gap-3 text-gray-300 mb-2">
+              <Mail className="w-5 h-5" /> info@unityalgo.com
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <Phone className="w-5 h-5" /> +880 123 456 789
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Form */}
+        <div className="bg-white p-10 lg:p-14 flex flex-col justify-center">
+          <h3 className="text-3xl font-extrabold text-black mb-2">Get in Touch</h3>
+          <p className="text-gray-500 text-sm mb-10 leading-relaxed">
+            Whether you have questions, need support, or want a demo our team is here to help.
+          </p>
+          
+          <form className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-black uppercase tracking-wider">Name</label>
+                <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-black uppercase tracking-wider">Email</label>
+                <input type="email" placeholder="name@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+              </div>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-black uppercase tracking-wider">Company</label>
+                <input type="text" placeholder="Your Company" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-black uppercase tracking-wider">Phone</label>
+                <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-black uppercase tracking-wider">Message</label>
+              <textarea placeholder="Message" rows={4} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" className="px-8 py-3 rounded-xl font-bold text-white bg-[#8c181b] hover:bg-[#701315] transition-colors shadow-lg shadow-[#8c181b]/30">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  );
+}
