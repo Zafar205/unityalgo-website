@@ -62,14 +62,15 @@ export function HeroSection() {
 
         {/* Headline */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black mb-6 leading-tight">
-          All-in-One ERP, Cloud & Analytics{" "}
+          The only {" "}
           <span className="relative inline-block border-2 border-[#8c181b] text-[#8c181b] px-3 py-1 mt-2">
-            Software
+            ERP
             <span className="absolute -left-1.5 -top-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
             <span className="absolute -right-1.5 -top-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
             <span className="absolute -bottom-1.5 -left-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
             <span className="absolute -bottom-1.5 -right-1.5 h-2.5 w-2.5 border border-[#8c181b] bg-white" />
           </span>
+            you'll ever need
         </h1>
 
         {/* Subheadline */}
@@ -84,7 +85,7 @@ export function HeroSection() {
             Start Free Trial
           </button>
           <button className="rounded-lg border border-gray-200 bg-white px-8 py-3.5 text-sm font-semibold text-black shadow-sm transition-all hover:bg-gray-50 hover:-translate-y-0.5">
-            Documentation
+            Contact Us
           </button>
         </div>
       </div>

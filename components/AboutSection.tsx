@@ -22,7 +22,8 @@ export function AboutSection() {
 
           {/* Paragraph */}
           <p className="text-lg text-gray-600 leading-relaxed max-w-xl">
-            UnityAlgo SaaS is an all in one management system that helps business owners to manage and operate their businesses. that allows get access lots of features that includes POS, expenses, purchases, sales, payments, accounting, inventory, and more.
+Traditional proprietary ERP systems are often expensive, rigid, and difficult to customize, forcing businesses to either invest heavily in solutions like SAP and Oracle NetSuite or rely on multiple disconnected applications that create manual work, poor visibility, and broken traceability. UnityAlgoERP offers a better alternative: a modern, comprehensive, and user friendly Enterprise Resource Planning (ERP) solution designed to streamline operations while remaining affordable. With powerful features, seamless integration, and extensive customization capabilities, UnityAlgoERP gives businesses complete freedom, control, and flexibility to adapt the system to their unique processes without the limitations and high costs of traditional ERP platforms.
+
           </p>
 
           {/* Stats */}
