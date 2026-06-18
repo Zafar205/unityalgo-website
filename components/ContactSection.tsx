@@ -1,8 +1,35 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import { Sparkles, Phone, Mail } from "lucide-react";
+import { Sparkles, Phone, Mail, Loader2 } from "lucide-react";
+import { sendContactEmail } from "@/app/actions/sendEmail";
 
 export function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+    setSuccess(false);
+
+    const formData = new FormData(e.currentTarget);
+    const result = await sendContactEmail(formData);
+
+    if (result.success) {
+      setSuccess(true);
+      (e.target as HTMLFormElement).reset();
+      setTimeout(() => setSuccess(false), 5000); // Clear success message after 5 seconds
+    } else {
+      setError(result.error || "Failed to send message. Please try again.");
+    }
+    
+    setIsSubmitting(false);
+  };
+
   return (
     <section id="contact" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20">
       <div className="text-center mb-16">
@@ -56,36 +83,40 @@ export function ContactSection() {
             Whether you have questions, need support, or want a demo our team is here to help.
           </p>
           
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold text-black uppercase tracking-wider">Name</label>
-                <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+                <input name="name" type="text" required placeholder="Your Name" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-black uppercase tracking-wider">Email</label>
-                <input type="email" placeholder="name@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+                <input name="email" type="email" required placeholder="name@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
               </div>
             </div>
             
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold text-black uppercase tracking-wider">Company</label>
-                <input type="text" placeholder="Your Company" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+                <input name="company" type="text" placeholder="Your Company" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-black uppercase tracking-wider">Phone</label>
-                <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
+                <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors" />
               </div>
             </div>
 
             <div className="space-y-2">
               <label className="text-xs font-bold text-black uppercase tracking-wider">Message</label>
-              <textarea placeholder="Message" rows={4} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors resize-none"></textarea>
+              <textarea name="message" required placeholder="Message" rows={4} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#8c181b] transition-colors resize-none"></textarea>
             </div>
 
-            <button type="submit" className="px-8 py-3 rounded-xl font-bold text-white bg-[#8c181b] hover:bg-[#701315] transition-colors shadow-lg shadow-[#8c181b]/30">
-              Send Message
+            {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
+            {success && <p className="text-green-600 text-sm font-medium bg-green-50 p-3 rounded-lg">Your message has been sent successfully. We will get back to you soon!</p>}
+
+            <button disabled={isSubmitting} type="submit" className="px-8 py-3 rounded-xl font-bold text-white bg-[#8c181b] hover:bg-[#701315] disabled:opacity-70 disabled:cursor-not-allowed transition-colors shadow-lg shadow-[#8c181b]/30 flex items-center justify-center gap-2">
+              {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>

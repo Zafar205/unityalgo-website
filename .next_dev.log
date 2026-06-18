@@ -1,0 +1,17 @@
+
+> unityalgo-website@0.1.0 dev
+> NODE_OPTIONS='--no-deprecation' next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.6:3000
+- Environments: .env
+✓ Ready in 386ms
+⚠ turbopack.root should be absolute, using: /Users/muhammadzafar/Desktop/unityalgo-website
+
+ GET / 200 in 556ms (next.js: 150ms, application-code: 406ms)
+Error: Failed to find Server Action ".next/server/app/page/server-reference-manifest.json". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST / 404 in 242ms (next.js: 4ms, application-code: 238ms)
+[?25h
