@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { Sparkles, ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 const featuresList1 = [
   {
@@ -133,30 +133,30 @@ const featuresList2 = [
 export function MainFeaturesSection() {
   const [activeTab1, setActiveTab1] = useState(0);
   const [activeTab2, setActiveTab2] = useState(0);
+  const activeFeature1 = featuresList1[activeTab1];
+  const activeFeature2 = featuresList2[activeTab2];
 
   return (
-    <section className="relative z-20 mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white">
+    <section className="features-switchboard relative z-20 mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white" data-reveal>
       
       {/* Background grid pattern for this specific section */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
 
       {/* Section Header */}
-      <div className="relative z-10 text-center mb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-bold text-black shadow-sm mb-6">
-          <Sparkles className="h-4 w-4 text-[#8c181b]" />
-          MAIN FEATURES
-        </div>
+      <div className="relative z-10 mx-auto mb-16 max-w-3xl text-center">
         <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black leading-tight">
-          Your Experience Gets Better <br className="hidden sm:block" />
-          And Better Over Time.
+          Run the workflows behind every order
         </h2>
+        <p className="mx-auto mt-6 text-lg text-gray-600 leading-relaxed">
+          Switch between departments and see how each module carries clean records, approvals, and reporting into the same ERP workspace.
+        </p>
       </div>
 
       {/* First Grid Layout (Tabs Left, Image Right) */}
       <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-start mb-24">
         
         {/* Left Side - Tabs List */}
-        <div className="lg:col-span-4 flex flex-col gap-3">
+        <div className="feature-tabs lg:col-span-4 flex flex-col gap-3">
           {featuresList1.map((feature, index) => {
             const isActive = activeTab1 === index;
             return (
@@ -164,7 +164,7 @@ export function MainFeaturesSection() {
                 key={index}
                 onClick={() => setActiveTab1(index)}
                 className={`
-                  group cursor-pointer rounded-xl border transition-all duration-500 ease-in-out
+                  group cursor-pointer rounded-xl border transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                   ${isActive 
                     ? "bg-white border-white shadow-xl border-l-4 !border-l-[#8c181b] p-6" 
                     : "bg-white border-gray-100 hover:border-gray-200 hover:shadow-sm p-5"
@@ -179,7 +179,7 @@ export function MainFeaturesSection() {
                     {feature.title}
                   </h3>
                   <ArrowRight 
-                    className={`h-5 w-5 transition-all duration-500 ease-in-out ${
+                    className={`h-5 w-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       isActive 
                         ? "-rotate-45 text-[#8c181b]" 
                         : "text-gray-400 group-hover:text-black"
@@ -189,7 +189,7 @@ export function MainFeaturesSection() {
 
                 {/* Animated Expandable Content */}
                 <div 
-                  className={`grid transition-all duration-500 ease-in-out ${
+                  className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isActive ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"
                   }`}
                 >
@@ -210,21 +210,17 @@ export function MainFeaturesSection() {
         </div>
 
         {/* Right Side - Dynamic Image Display */}
-        <div className="lg:col-span-8 rounded-[2rem] border border-gray-100 bg-gray-50/50 p-3 shadow-sm transition-all">
+        <div data-parallax="panel" className="feature-display-shell lg:col-span-8 rounded-[2rem] border border-gray-100 bg-gray-50/50 p-3 shadow-sm transition-all">
           <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
-            {featuresList1.map((feature, idx) => (
-              <Image
-                key={idx}
-                src={feature.image}
-                alt={feature.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 66vw"
-                className={`object-contain p-2 transition-opacity duration-700 ease-in-out absolute inset-0 ${
-                  activeTab1 === idx ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-                priority={idx === 0}
-              />
-            ))}
+            <Image
+              key={activeFeature1.title}
+              src={activeFeature1.image}
+              alt={activeFeature1.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              className="feature-preview-image object-contain p-2 animate-in fade-in duration-500"
+              priority
+            />
           </div>
         </div>
 
@@ -234,25 +230,21 @@ export function MainFeaturesSection() {
       <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Side - Dynamic Image Display */}
-        <div className="lg:col-span-8 rounded-[2rem] border border-gray-100 bg-gray-50/50 p-3 shadow-sm transition-all order-2 lg:order-1">
+        <div data-parallax="panel" className="feature-display-shell lg:col-span-8 rounded-[2rem] border border-gray-100 bg-gray-50/50 p-3 shadow-sm transition-all order-2 lg:order-1">
           <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
-            {featuresList2.map((feature, idx) => (
-              <Image
-                key={idx}
-                src={feature.image}
-                alt={feature.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 66vw"
-                className={`object-contain p-2 transition-opacity duration-700 ease-in-out absolute inset-0 ${
-                  activeTab2 === idx ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-              />
-            ))}
+            <Image
+              key={activeFeature2.title}
+              src={activeFeature2.image}
+              alt={activeFeature2.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              className="feature-preview-image object-contain p-2 animate-in fade-in duration-500"
+            />
           </div>
         </div>
 
         {/* Right Side - Tabs List */}
-        <div className="lg:col-span-4 flex flex-col gap-3 order-1 lg:order-2">
+        <div className="feature-tabs lg:col-span-4 flex flex-col gap-3 order-1 lg:order-2">
           {featuresList2.map((feature, index) => {
             const isActive = activeTab2 === index;
             return (
@@ -260,7 +252,7 @@ export function MainFeaturesSection() {
                 key={index}
                 onClick={() => setActiveTab2(index)}
                 className={`
-                  group cursor-pointer rounded-xl border transition-all duration-500 ease-in-out
+                  group cursor-pointer rounded-xl border transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                   ${isActive 
                     ? "bg-white border-white shadow-xl border-l-4 !border-l-[#8c181b] p-6" 
                     : "bg-white border-gray-100 hover:border-gray-200 hover:shadow-sm p-5"
@@ -275,7 +267,7 @@ export function MainFeaturesSection() {
                     {feature.title}
                   </h3>
                   <ArrowRight 
-                    className={`h-5 w-5 transition-all duration-500 ease-in-out ${
+                    className={`h-5 w-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       isActive 
                         ? "-rotate-45 text-[#8c181b]" 
                         : "text-gray-400 group-hover:text-black"
@@ -285,7 +277,7 @@ export function MainFeaturesSection() {
 
                 {/* Animated Expandable Content */}
                 <div 
-                  className={`grid transition-all duration-500 ease-in-out ${
+                  className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isActive ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"
                   }`}
                 >

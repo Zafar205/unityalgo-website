@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Sparkles, Phone, Mail, Loader2 } from "lucide-react";
+import { Phone, Mail, Loader2 } from "lucide-react";
 import { sendContactEmail } from "@/app/actions/sendEmail";
 
 export function ContactSection() {
@@ -31,18 +31,18 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-bold text-black shadow-sm mb-6">
-          <Sparkles className="h-4 w-4 text-[#8c181b]" />
-          CONTACT NOW
-        </div>
+    <section id="contact" className="contact-section relative mx-auto max-w-7xl px-6 py-24 lg:px-8 bg-white z-20" data-reveal>
+      <div className="mx-auto mb-16 max-w-3xl text-center">
+        <p className="section-kicker">Contact</p>
         <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black leading-tight">
-          We'd Love to Hear From You
+          Talk through your ERP rollout
         </h2>
+        <p className="mx-auto mt-6 text-lg text-gray-600 leading-relaxed">
+          Share your workflow, modules, and deployment requirements. We will map the next practical step.
+        </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl max-w-5xl mx-auto">
+      <div data-parallax="panel" className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl max-w-5xl mx-auto">
         
         {/* Left: Image & Info */}
         <div className="relative aspect-square lg:aspect-auto w-full bg-[#8c181b]">
@@ -80,7 +80,7 @@ export function ContactSection() {
         <div className="bg-white p-10 lg:p-14 flex flex-col justify-center">
           <h3 className="text-3xl font-extrabold text-black mb-2">Get in Touch</h3>
           <p className="text-gray-500 text-sm mb-10 leading-relaxed">
-            Whether you have questions, need support, or want a demo our team is here to help.
+            Whether you have questions, need support, or want a demo, our team is here to help.
           </p>
           
           <form className="space-y-6" onSubmit={handleSubmit}>

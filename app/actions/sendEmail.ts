@@ -2,6 +2,23 @@
 
 import nodemailer from "nodemailer";
 
+function getErrorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return error.message;
+  }
+
+  return fallback;
+}
+
 function getTransporter() {
   return nodemailer.createTransport({
     host: process.env.EMAIL_HOST || "smtp.gmail.com",
@@ -37,9 +54,9 @@ export async function sendContactEmail(formData: FormData) {
 
     await transporter.sendMail(mailOptions);
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending contact email:", error);
-    return { success: false, error: error.message || "Failed to send email" };
+    return { success: false, error: getErrorMessage(error, "Failed to send email") };
   }
 }
 
@@ -62,8 +79,8 @@ export async function sendNewsletterEmail(formData: FormData) {
 
     await transporter.sendMail(mailOptions);
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending newsletter email:", error);
-    return { success: false, error: error.message || "Failed to subscribe" };
+    return { success: false, error: getErrorMessage(error, "Failed to subscribe") };
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   { 
@@ -26,7 +26,7 @@ const faqs = [
   },
   { 
     text: "Can UnityAlgo integrate with other software I’m already using?",
-    answer: "Yes, UnityAlgo is designed to integrate with other business tools through its RESTful API and a growing ecosystem of Marketplace apps. Common integrations include authentication tools (LDAP, fairlogin), backup methods (Dropbox, Google Drive, Amazon S3), bank integrations (Plaid), payment gateways (Stripe, PayPal, RazorPay, GoCardless, Braintree, M-pesa, Paytm), ecommerce platforms (Shopify, WooCommerce, Amazon, Unicommerce, Zenoti), and communication tools (Twilio, Exotel). This ensures that your ERP system works seamlessly with the software you already use, reducing double entry and improving efficiency."
+    answer: "Yes, UnityAlgo is designed to integrate with other business tools through its RESTful API and a growing ecosystem of Marketplace apps. Common integrations include authentication tools (LDAP, fairlogin), backup methods (Dropbox, Google Drive, Amazon S3), bank integrations (Plaid), payment gateways (Stripe, PayPal, RazorPay, GoCardless, Braintree, M-pesa, Paytm), ecommerce platforms (Shopify, WooCommerce, Amazon, Unicommerce, Zenoti), and communication tools (Twilio, Exotel). This helps your ERP work with the software you already use, reducing double entry and improving efficiency."
   },
   { 
     text: "Is UnityAlgo a good fit for service-based businesses or only for manufacturing and distribution businesses?",
@@ -42,15 +42,12 @@ export function FAQSection() {
   };
 
   return (
-    <section id="faq" className="relative w-full py-24 bg-[#FAFAFA] overflow-hidden">
+    <section id="faq" className="faq-section relative w-full py-24 bg-[#FAFAFA] overflow-hidden" data-reveal>
       {/* Subtle Grid Background */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_100%] opacity-70 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-bold text-black shadow-sm mb-6">
-          <Sparkles className="h-4 w-4 text-[#8c181b]" />
-          TRENDING FAQS
-        </div>
+        <p className="section-kicker">FAQ</p>
         <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black leading-tight mb-16">
           Frequently Asked Questions
         </h2>
@@ -69,7 +66,7 @@ export function FAQSection() {
                     <ChevronDown className={`w-5 h-5 flex-shrink-0 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#8c181b]' : ''}`} />
                   </div>
                   <div 
-                    className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] mt-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                    className={`grid transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr] mt-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                   >
                     <div className="overflow-hidden text-gray-600 text-base leading-relaxed">
                       {faq.answer}

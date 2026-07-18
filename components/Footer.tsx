@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
 import Image from "next/image";
+import React, { useRef, useState } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { sendNewsletterEmail } from "@/app/actions/sendEmail";
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -30,38 +31,81 @@ export function Footer() {
     setIsSubmitting(false);
   };
 
-  return (
-    <footer className="relative bg-[#8c181b] text-white overflow-hidden pt-24 pb-12">
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        
-        {/* Top Row */}
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-8 mb-32">
-          
-          {/* Subscribe Col */}
-          <div className="lg:col-span-5 space-y-8">
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const footer = footerRef.current;
 
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Subscribe For Our Newsletter</h4>
+    if (!footer) {
+      return;
+    }
+
+    const watermark = footer.querySelector<HTMLElement>(".footer-watermark");
+
+    if (!watermark) {
+      return;
+    }
+
+    const rect = watermark.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const isInsideWatermark = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
+
+    footer.style.setProperty("--footer-spotlight-x", `${x}px`);
+    footer.style.setProperty("--footer-spotlight-y", `${y}px`);
+    footer.style.setProperty("--footer-spotlight-opacity", isInsideWatermark ? "1" : "0");
+  };
+
+  const handlePointerLeave = () => {
+    footerRef.current?.style.setProperty("--footer-spotlight-opacity", "0");
+  };
+
+  return (
+    <footer
+      ref={footerRef}
+      className="footer-section relative bg-[#181413] text-white overflow-hidden py-12 sm:py-14"
+      data-reveal
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <a href="#home" className="footer-brand" aria-label="UnityAlgo home">
+              <Image
+                src="/logo.png"
+                alt=""
+                width={42}
+                height={42}
+                className="object-contain"
+              />
+              <span>UnityAlgo</span>
+            </a>
+
+            <p className="mt-5 max-w-sm text-sm leading-relaxed">
+              AI-ready ERP infrastructure for accounting, inventory, approvals, sales, and operational reporting.
+            </p>
+
+            <div className="mt-7 max-w-md">
+              <h4 className="mb-3 text-sm font-semibold">Subscribe to product notes</h4>
               <form onSubmit={handleSubscribe}>
-                <div className="relative max-w-md">
+                <div className="footer-subscribe">
                   <input 
                     name="email"
                     type="email" 
                     required
                     placeholder="Email" 
-                    className="w-full bg-black border-none rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-400"
+                    className="w-full rounded-full border-none bg-transparent px-5 py-3 pr-12 text-sm text-white placeholder-white/38 focus:outline-none"
                   />
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-300 hover:text-white disabled:opacity-50 disabled:hover:text-gray-300 transition-colors"
+                    className="absolute right-1.5 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-white transition-colors disabled:opacity-50 disabled:hover:text-white"
+                    aria-label="Subscribe"
                   >
                     {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <ArrowRight className="w-5 h-5" />}
                   </button>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-gray-300">
-                  <input required type="checkbox" id="privacy" className="rounded border-gray-400 bg-transparent text-white focus:ring-white cursor-pointer" />
+                <div className="mt-3 flex items-center gap-2 text-xs text-white/52">
+                  <input required type="checkbox" id="privacy" className="cursor-pointer rounded border-white/30 bg-transparent text-white focus:ring-white" />
                   <label htmlFor="privacy" className="cursor-pointer">I agree to the Privacy Policy</label>
                 </div>
                 {error && <p className="text-red-300 text-sm font-medium mt-3">{error}</p>}
@@ -70,48 +114,45 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links Cols */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            <div className="space-y-6">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-300">Main Pages</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+          <div className="footer-links lg:col-span-7 grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <div>
+              <h4>Main Pages</h4>
+              <ul>
+                <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
+                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
               </ul>
             </div>
-            <div className="space-y-6">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-300">Utility Pages</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors">404 Error Page</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">License page</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Style Guide</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Changelog</a></li>
+            <div>
+              <h4>Legal</h4>
+              <ul>
+                <li><a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#terms" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#license" className="hover:text-white transition-colors">License</a></li>
               </ul>
             </div>
-            <div className="space-y-6">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-300">Socials</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li><a href="#" className="hover:text-white transition-colors uppercase">Facebook</a></li>
-                <li><a href="#" className="hover:text-white transition-colors uppercase">Instagram</a></li>
-                <li><a href="#" className="hover:text-white transition-colors uppercase">LinkedIn</a></li>
+            <div>
+              <h4>Socials</h4>
+              <ul>
+                <li><a href="#facebook" className="hover:text-white transition-colors uppercase">Facebook</a></li>
+                <li><a href="#instagram" className="hover:text-white transition-colors uppercase">Instagram</a></li>
+                <li><a href="#linkedin" className="hover:text-white transition-colors uppercase">LinkedIn</a></li>
               </ul>
             </div>
           </div>
-
         </div>
 
-      </div>
+        <div className="footer-watermark" aria-hidden="true">
+          <span className="footer-watermark-base">UNITYALGO</span>
+          <span className="footer-watermark-highlight">UNITYALGO</span>
+        </div>
 
-      {/* Huge Watermark Text */}
-      <div className="absolute bottom-0 left-0 right-0 z-0 flex items-end justify-center overflow-hidden h-[300px] pointer-events-none">
-        <h1 className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/[0.05] to-transparent leading-none select-none relative z-10">
-          UNITYALGO
-        </h1>
-        {/* Simple gradient bottom representing the staggered bars pattern */}
-        <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-black to-transparent opacity-80" />
+        <div className="footer-bottom">
+          <p>© 2026 UnityAlgo. All rights reserved.</p>
+          <span>All services are online</span>
+        </div>
       </div>
     </footer>
   );
