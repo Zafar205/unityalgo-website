@@ -45,7 +45,7 @@ export function PremiumMotion({ children }: { children: React.ReactNode }) {
           const heroContent = q(".hero-content")[0];
           const heroGradient = q(".hero-gradient-field")[0];
           const heroDashboard = q(".hero-dashboard-frame")[0];
-          const marqueeTrack = q(".capability-marquee-track")[0];
+          const marqueeTracks = q(".capability-marquee-track");
           const promptWords = q(".hero-prompt-word");
           const heroMetricShells = q(".hero-metric-card");
           const heroMetricCards = q(".hero-metric-card-inner");
@@ -77,12 +77,12 @@ export function PremiumMotion({ children }: { children: React.ReactNode }) {
                   autoAlpha: 1,
                   y: 0,
                   filter: "blur(0px)",
-                  duration: 0.72,
+                  duration: isDesktop ? 0.72 : 0.48,
                   ease: "power2.out",
-                  stagger: 0.12,
+                  stagger: isDesktop ? 0.12 : 0.045,
                   clearProps: "visibility",
                 },
-                "-=0.12"
+                "-=0.32"
               )
               .from(
                 heroDashboard,
@@ -107,12 +107,20 @@ export function PremiumMotion({ children }: { children: React.ReactNode }) {
                 "-=0.42"
               );
 
-            if (marqueeTrack) {
-              gsap.to(marqueeTrack, {
-                xPercent: -50,
-                duration: isDesktop ? 34 : 26,
-                ease: "none",
-                repeat: -1,
+            if (marqueeTracks.length > 0) {
+              marqueeTracks.forEach((track, index) => {
+                const reverse = index % 2 === 1;
+
+                gsap.fromTo(
+                  track,
+                  { xPercent: reverse ? -50 : 0 },
+                  {
+                    xPercent: reverse ? 0 : -50,
+                    duration: isDesktop ? 34 + index * 4 : 26 + index * 3,
+                    ease: "none",
+                    repeat: -1,
+                  }
+                );
               });
             }
 

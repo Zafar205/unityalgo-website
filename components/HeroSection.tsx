@@ -2,18 +2,27 @@ import Image from "next/image";
 import React from "react";
 
 const capabilityChips = [
-  "Unify financial reporting",
   "Optimize supply chain",
   "Master project finances",
   "Streamline production scheduling",
-  "Improve quality management",
-  "Automate customer support",
+  "Enhance quality management",
+  "Unify financial reporting",
+  "Transform BOM management",
+  "Accelerate sales conversions",
+  "Elevate customer support",
+  "Streamline new hires",
+  "Transform talent management",
   "Control purchasing approvals",
   "Track inventory movement",
 ];
 
 const promptText =
-  "Create an ERP workspace that reconciles invoices, tracks inventory, and reports branch cashflow.";
+  "Create a financial consolidation app that automatically collects data from multiple business entities, performs currency conversion, and generates unified reports.";
+
+const capabilityRows = [
+  capabilityChips.slice(0, 6),
+  capabilityChips.slice(6),
+];
 
 export function HeroSection() {
   return (
@@ -47,17 +56,19 @@ export function HeroSection() {
         {/* Announcement Pill */}
         <div className="hero-announcement mx-auto mb-8 flex max-w-fit items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-black shadow-sm">
           <span className="hero-announcement-icon" aria-hidden="true">*</span>
-          AI-native ERP for operators who need control
+          Introducing UnityAlgo: The Future of Enterprise
         </div>
 
         {/* Headline */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black mb-6 leading-tight">
-          AI-powered ERP for real operations
+          <span className="hero-title-line">AI-powered ERP</span>
+          {" "}
+          <span className="hero-title-line">for real operations</span>
         </h1>
 
         {/* Subheadline */}
         <p className="mx-auto max-w-2xl text-lg text-black font-medium leading-relaxed mb-10">
-          Run accounting, sales, purchasing, inventory, support, and approvals from one AI-ready ERP workspace.
+          Build, deploy, and manage AI agents and ERP workflows from one unified platform.
         </p>
 
         {/* Prompt Console */}
@@ -71,20 +82,27 @@ export function HeroSection() {
             ))}
           </p>
           <a href="#contact" className="hero-prompt-action">
-            Build Workspace
+            Build Now with UnityAlgo
             <span aria-hidden="true">-&gt;</span>
           </a>
         </div>
 
         {/* Capability Marquee */}
         <div className="capability-marquee" aria-label="UnityAlgo capabilities">
-          <div className="capability-marquee-track">
-            {[...capabilityChips, ...capabilityChips].map((chip, index) => (
-              <span key={`${chip}-${index}`} className="capability-chip">
-                {chip}
-              </span>
-            ))}
-          </div>
+          {capabilityRows.map((row, rowIndex) => (
+            <div key={`capability-row-${rowIndex}`} className="capability-marquee-row">
+              <div className="capability-marquee-track">
+                {[...row, ...row].map((chip, index) => (
+                  <span
+                    key={`${chip}-${rowIndex}-${index}`}
+                    className="capability-chip"
+                  >
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
